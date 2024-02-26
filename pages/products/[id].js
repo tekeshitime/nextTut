@@ -3,37 +3,7 @@ import { useRouter } from "next/router";
 import styles from "../../styles/Home.module.css";
 
 //SSG
-// export async function getStaticProps({ params }) {
-//   const req = await fetch(`http://localhost:3000/${params.id}.json`);
-//   const data = await req.json();
-
-//   return {
-//     props: {
-//       product: data,
-//     },
-//   };
-// }
-
-// export async function getStaticPaths() {
-//   const req = await fetch(`http://localhost:3000/products.json`);
-//   const data = await req.json();
-
-//   const paths = data.map((product) => {
-//     return {
-//       params: {
-//         id: product,
-//       },
-//     };
-//   });
-
-//   return {
-//     paths,
-//     fallback: false,
-//   };
-// }
-
-//SSG
-export async function getServerSideProps({ params }) {
+export async function getStaticProps({ params }) {
   const req = await fetch(`http://localhost:3000/${params.id}.json`);
   const data = await req.json();
 
@@ -41,6 +11,24 @@ export async function getServerSideProps({ params }) {
     props: {
       product: data,
     },
+  };
+}
+
+export async function getStaticPaths() {
+  const req = await fetch(`http://localhost:3000/products.json`);
+  const data = await req.json();
+
+  const paths = data.map((product) => {
+    return {
+      params: {
+        id: product,
+      },
+    };
+  });
+
+  return {
+    paths,
+    fallback: false,
   };
 }
 
